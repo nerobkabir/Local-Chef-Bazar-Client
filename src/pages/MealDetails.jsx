@@ -18,7 +18,7 @@ const MealDetails = () => {
     comment: "",
   });
 
-  // Fetch meal details & reviews
+  // Fetch meal & reviews
   useEffect(() => {
     if (!user) {
       navigate("/auth/login");
@@ -34,7 +34,7 @@ const MealDetails = () => {
 
         const reviewRes = await fetch(`http://localhost:3000/reviews/${mealId}`);
         const reviewsData = await reviewRes.json();
-        setReviews(reviewsData);
+        setReviews(reviewsData || []);
 
         setLoading(false);
       } catch (err) {
@@ -46,7 +46,7 @@ const MealDetails = () => {
     fetchMealAndReviews();
   }, [mealId, user, navigate]);
 
-  // Handle Add to Favorites
+  // Add to Favorites
   const handleAddFavorite = async () => {
     try {
       const res = await fetch("http://localhost:3000/favorites", {
@@ -74,18 +74,20 @@ const MealDetails = () => {
     }
   };
 
-  // Handle Submit Review
+  // Submit Review
   const handleSubmitReview = async (e) => {
     e.preventDefault();
-
     if (!reviewForm.comment) return;
 
     const newReview = {
       foodId: meal._id,
+      userEmail: user.email,             // ✅ add this
+      mealName: meal.foodName,           // ✅ add mealName
       reviewerName: user.displayName,
       reviewerImage: user.photoURL || "https://i.ibb.co/sample-user.jpg",
       rating: reviewForm.rating,
       comment: reviewForm.comment,
+      date: new Date(),
     };
 
     try {
@@ -104,7 +106,6 @@ const MealDetails = () => {
           showConfirmButton: false,
         });
 
-        // Update review list instantly
         setReviews((prev) => [newReview, ...prev]);
         setReviewForm({ rating: 5, comment: "" });
       }
@@ -133,7 +134,6 @@ const MealDetails = () => {
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
-
         <div className="md:w-1/2 p-8 flex flex-col justify-between">
           <div>
             <h2 className="text-4xl font-bold text-gray-800 mb-4">{meal.foodName}</h2>
@@ -199,9 +199,9 @@ const MealDetails = () => {
 
         {/* Display Reviews */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {reviews.map((rev, idx) => (
+          {reviews.map((rev) => (
             <motion.div
-              key={idx}
+              key={rev._id || rev.date} // fallback
               whileHover={{ scale: 1.02 }}
               className="bg-white p-6 rounded-2xl shadow-lg flex gap-4"
             >

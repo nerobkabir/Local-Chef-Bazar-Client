@@ -1,54 +1,118 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../pages/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Clock, User } from "lucide-react";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user?.email) return; // 🟢 FIX: user null হলে API call হবে না
+
     const loadOrders = async () => {
-      const res = await fetch(`http://localhost:3000/orders?email=${user.email}`);
+      const res = await fetch(
+        `http://localhost:3000/orders?email=${user.email}`
+      );
       const data = await res.json();
-      setOrders(data.data);
+      setOrders(data.data || []);
     };
+
     loadOrders();
-  }, [user.email]);
+  }, [user?.email]); // 🟢 FIX: safe dependency
+
+  if (!user) {
+    return (
+      <p className="text-center text-lg text-gray-600 mt-20">
+        Please login to view your orders.
+      </p>
+    );
+  }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">My Orders</h1>
+    <div className="p-4 md:p-8 lg:p-12">
+      <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
+        My Orders
+      </h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {orders.map(order => (
-          <div key={order._id} className="p-5 bg-white shadow-md rounded-xl">
+      {orders.length === 0 && (
+        <p className="text-center text-gray-500 text-lg mt-20">
+          You have no orders yet.
+        </p>
+      )}
 
-            <h2 className="text-xl font-bold text-orange-700">{order.mealName}</h2>
-            <p><b>Price:</b> {order.price} TK</p>
-            <p><b>Quantity:</b> {order.quantity}</p>
-            <p><b>Order Status:</b> {order.orderStatus}</p>
-            <p><b>Payment Status:</b> {order.paymentStatus}</p>
-            <p><b>Chef Name:</b> {order.chefName || "Unknown"}</p>
-            <p><b>Chef ID:</b> {order.chefId}</p>
-            <p><b>Order Time:</b> {new Date(order.orderTime).toLocaleString()}</p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {orders.map((order) => (
+          <div
+            key={order._id}
+            className="p-6 bg-white rounded-2xl shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-orange-600 mb-2">
+              {order.mealName}
+            </h2>
 
-            {/* ===========================
-                SHOW PAY BUTTON IF:
-                1) orderStatus === accepted
-                2) paymentStatus === Pending
-            ============================= */}
+            <div className="space-y-2 text-gray-700 mt-3">
+              <p>
+                <b>Price:</b> {order.price} TK
+              </p>
 
-            {order.orderStatus === "accepted" && order.paymentStatus === "Pending" && (
-              <button
-                onClick={() => navigate(`/pay/${order._id}`)}
-                className="mt-4 w-full bg-green-600 text-white p-2 rounded-lg"
-              >
-                Pay Now
-              </button>
-            )}
+              <p>
+                <b>Quantity:</b> {order.quantity}
+              </p>
 
+              <p className="flex items-center gap-1">
+                <b>Order Status:</b>
+                <span
+                  className={`px-2 py-1 rounded-lg text-white text-sm ${
+                    order.orderStatus === "accepted"
+                      ? "bg-green-600"
+                      : order.orderStatus === "pending"
+                      ? "bg-yellow-500"
+                      : "bg-blue-600"
+                  }`}
+                >
+                  {order.orderStatus}
+                </span>
+              </p>
+
+              <p className="flex items-center gap-1">
+                <b>Payment:</b>
+                <span
+                  className={`px-2 py-1 rounded-lg text-white text-sm ${
+                    order.paymentStatus === "Pending"
+                      ? "bg-red-500"
+                      : "bg-green-600"
+                  }`}
+                >
+                  {order.paymentStatus}
+                </span>
+              </p>
+
+              <p className="flex items-center gap-2">
+                <User className="w-5 h-5" />
+                <b>Chef:</b> {order.chefName || "Unknown"}
+              </p>
+
+              <p>
+                <b>Chef ID:</b> {order.chefId}
+              </p>
+
+              <p className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-gray-600" />
+                <span>{new Date(order.orderTime).toLocaleString()}</span>
+              </p>
+            </div>
+
+            {order.orderStatus === "accepted" &&
+              order.paymentStatus === "Pending" && (
+                <button
+                  onClick={() => navigate(`/pay/${order._id}`)}
+                  className="mt-5 w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition"
+                >
+                  Pay Now
+                </button>
+              )}
           </div>
         ))}
       </div>

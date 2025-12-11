@@ -13,6 +13,8 @@ import ProfilePage from "../pages/ProfilePage";
 import MyOrders from "../pages/MyOrders";
 import PaymentPage from "../pages/PaymentPage";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import MyReviews from "../pages/MyReviews";
+import FavoriteMeals from "../pages/FavoriteMeals";
 
 export const router = createBrowserRouter([
   {
@@ -65,12 +67,21 @@ export const router = createBrowserRouter([
       },
       {
         path: "pay/:orderId",
-        element: <PaymentPage />,
+        element: <PaymentPage />,   
       },
       {
         path: "payment-success",
         element: <PaymentSuccess />,
       },
+      {
+        path: "my-reviews",
+        element: <MyReviews />,
+      },
+      {
+        path: "favorites",
+        element: <FavoriteMeals />,
+      }
+
 
     ],
   }
