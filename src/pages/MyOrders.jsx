@@ -9,7 +9,7 @@ const MyOrders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user?.email) return; // 🟢 FIX: user null হলে API call হবে না
+    if (!user?.email) return;
 
     const loadOrders = async () => {
       const res = await fetch(
@@ -20,7 +20,7 @@ const MyOrders = () => {
     };
 
     loadOrders();
-  }, [user?.email]); // 🟢 FIX: safe dependency
+  }, [user?.email]);
 
   if (!user) {
     return (
@@ -53,13 +53,8 @@ const MyOrders = () => {
             </h2>
 
             <div className="space-y-2 text-gray-700 mt-3">
-              <p>
-                <b>Price:</b> {order.price} TK
-              </p>
-
-              <p>
-                <b>Quantity:</b> {order.quantity}
-              </p>
+              <p><b>Price:</b> {order.price} TK</p>
+              <p><b>Quantity:</b> {order.quantity}</p>
 
               <p className="flex items-center gap-1">
                 <b>Order Status:</b>
@@ -94,9 +89,7 @@ const MyOrders = () => {
                 <b>Chef:</b> {order.chefName || "Unknown"}
               </p>
 
-              <p>
-                <b>Chef ID:</b> {order.chefId}
-              </p>
+              <p><b>Chef ID:</b> {order.chefId}</p>
 
               <p className="flex items-center gap-2">
                 <Clock className="w-5 h-5 text-gray-600" />

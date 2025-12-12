@@ -15,6 +15,7 @@ import PaymentPage from "../pages/PaymentPage";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import MyReviews from "../pages/MyReviews";
 import FavoriteMeals from "../pages/FavoriteMeals";
+import MyMeals from "../pages/MyMeals";
 
 export const router = createBrowserRouter([
   {
@@ -80,7 +81,12 @@ export const router = createBrowserRouter([
       {
         path: "favorites",
         element: <FavoriteMeals />,
-      }
+      },
+      {
+        path: "my-meals",
+        element: <MyMeals />,
+      },
+
 
 
     ],

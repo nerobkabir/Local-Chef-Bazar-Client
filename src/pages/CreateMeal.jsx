@@ -19,7 +19,7 @@ const CreateMeal = () => {
       }
 
       // ==============================
-      // Upload Image to IMGBB
+      // 1. Upload Image to IMGBB
       // ==============================
       const formData = new FormData();
       formData.append("image", data.foodImage[0]);
@@ -34,26 +34,24 @@ const CreateMeal = () => {
       const imageUrl = uploadRes.data.data.url;
 
       // ==============================
-      // Prepare Meal Data (AS REQUIRED)
+      // 2. Prepare Meal Data
       // ==============================
       const mealData = {
         foodName: data.foodName.trim(),
         chefName: data.chefName.trim(),
         foodImage: imageUrl,
         price: parseFloat(data.price),
-        rating: 0, // required default value
+        rating: 0, // requirement
         ingredients: data.ingredients.split(",").map((i) => i.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime.trim(),
         chefExperience: data.chefExperience.trim(),
-
-        // IMPORTANT: chefId is NOT user.uid
-        chefId: data.chefId.trim(), // you'll get this from admin approval
-
+        chefId: data.chefId.trim(), // MUST HAVE
         userEmail: user.email,
+        createdAt: new Date(),
       };
 
       // ==============================
-      // Send to Backend
+      // 3. Send to Backend
       // ==============================
       const res = await fetch("http://localhost:3000/create-meal", {
         method: "POST",
@@ -69,6 +67,7 @@ const CreateMeal = () => {
       } else {
         Swal.fire("Failed", "Meal creation failed!", "error");
       }
+
     } catch (error) {
       console.error("Meal Create Error:", error);
       Swal.fire("Error", "Something went wrong!", "error");
@@ -123,6 +122,13 @@ const CreateMeal = () => {
           {...register("chefExperience", { required: true })}
           className="textarea textarea-bordered w-full"
           placeholder="Chef Experience"
+        />
+
+        {/* Rating (Auto default 0) */}
+        <input
+          className="input input-bordered w-full bg-gray-200"
+          value="0"
+          readOnly
         />
 
         {/* CHEF ID — REQUIRED FIELD */}

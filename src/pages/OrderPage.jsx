@@ -22,13 +22,21 @@ const OrderPage = () => {
     loadMeal();
   }, [mealId]);
 
-  if (!meal) return <p className="text-center mt-20">Loading meal...</p>;
+  // ❗ Must come AFTER all hooks
+  if (!user) {
+    return (
+      <p className="text-center mt-20 text-xl text-gray-600">
+        Please login to place an order.
+      </p>
+    );
+  }
+
+  if (!meal) {
+    return <p className="text-center mt-20 text-xl">Loading meal...</p>;
+  }
 
   const totalPrice = meal.price * quantity;
 
-  // ======================
-  // HANDLE ORDER SUBMIT
-  // ======================
   const handleOrderSubmit = () => {
     if (!address) {
       return Swal.fire("Error", "Please enter a delivery address", "error");
@@ -53,6 +61,7 @@ const OrderPage = () => {
           userAddress: address,
           orderStatus: "pending",
           paymentStatus: "Pending",
+          orderTime: new Date(),
         };
 
         const res = await fetch("http://localhost:3000/orders", {

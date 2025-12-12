@@ -14,6 +14,7 @@ const DashboardSidebar = ({ role }) => {
     { name: "My Orders", path: "my-orders" },
     { name: "My Reviews", path: "my-reviews" },
     { name: "Favorite Meals", path: "favorites" },
+    { name: "My Meals", path: "my-meals" },
      
   ];
 
