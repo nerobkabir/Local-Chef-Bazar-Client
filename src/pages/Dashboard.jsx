@@ -15,6 +15,7 @@ const DashboardSidebar = ({ role }) => {
     { name: "My Reviews", path: "my-reviews" },
     { name: "Favorite Meals", path: "favorites" },
     { name: "My Meals", path: "my-meals" },
+    { name: "Order Requests", path: "order-requests" },
      
   ];
 
@@ -22,7 +23,7 @@ const DashboardSidebar = ({ role }) => {
     { name: "Create Meal", path: "create-meal" },
     { name: "My Meals", path: "my-meals" },
     { name: "Order Requests", path: "order-requests" },
-    { name: "Add Meal", path: "create-meal" },
+    
   ];
 
   const adminLinks = [

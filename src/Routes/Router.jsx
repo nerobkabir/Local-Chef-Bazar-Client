@@ -16,6 +16,8 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import MyReviews from "../pages/MyReviews";
 import FavoriteMeals from "../pages/FavoriteMeals";
 import MyMeals from "../pages/MyMeals";
+import OrderRequests from "../pages/OrderRequests";
+import ManageUsers from "../pages/ManageUsers";
 
 export const router = createBrowserRouter([
   {
@@ -86,6 +88,14 @@ export const router = createBrowserRouter([
         path: "my-meals",
         element: <MyMeals />,
       },
+      {
+        path: "order-requests",
+        element: <OrderRequests />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      }
 
 
 
