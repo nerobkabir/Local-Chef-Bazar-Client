@@ -14,8 +14,7 @@ const DashboardSidebar = ({ role }) => {
     { name: "My Orders", path: "my-orders" },
     { name: "My Reviews", path: "my-reviews" },
     { name: "Favorite Meals", path: "favorites" },
-    { name: "My Meals", path: "my-meals" },
-    { name: "Order Requests", path: "order-requests" },
+    
      
   ];
 
@@ -29,7 +28,7 @@ const DashboardSidebar = ({ role }) => {
   const adminLinks = [
     { name: "Manage Users", path: "manage-users" },
     { name: "Manage Requests", path: "manage-requests" },
-    { name: "Platform Statistics", path: "statistics" },
+    { name: "Platform Statistics", path: "platform-stats" },
   ];
 
   let roleLinks = [];

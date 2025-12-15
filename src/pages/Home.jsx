@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [meals, setMeals] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/meals")
+    // Fetch first 6 meals
+    fetch("http://localhost:3000/meals?page=1&limit=6")
       .then((res) => res.json())
-      .then((data) => setMeals(data.slice(0, 6)))
+      .then((result) => {
+        if (result.success) {
+          setMeals(result.data);
+        }
+      })
       .catch((err) => console.error("Meals fetch error:", err));
 
+    // Fetch all reviews
     fetch("http://localhost:3000/reviews")
       .then((res) => res.json())
       .then((data) => setReviews(data))
@@ -44,6 +52,7 @@ const Home = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="bg-orange-500 px-8 py-4 rounded-full mt-8 text-white font-semibold shadow-lg hover:shadow-xl transition"
+            onClick={() => navigate("/meals")}
           >
             Order Now
           </motion.button>
@@ -59,7 +68,8 @@ const Home = () => {
             <motion.div
               key={meal._id}
               whileHover={{ scale: 1.03 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden transition transform hover:-translate-y-1"
+              className="bg-white rounded-2xl shadow-lg overflow-hidden transition transform hover:-translate-y-1 cursor-pointer"
+              onClick={() => navigate(`/meal-details/${meal._id}`)}
             >
               <div className="h-64 overflow-hidden">
                 <img
@@ -70,7 +80,9 @@ const Home = () => {
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-2">{meal.foodName}</h3>
-                <p className="text-gray-600 mb-3">{meal.ingredients?.slice(0, 3).join(", ") + (meal.ingredients?.length > 3 ? "..." : "")}</p>
+                <p className="text-gray-600 mb-3">
+                  {meal.ingredients?.slice(0, 3).join(", ") + (meal.ingredients?.length > 3 ? "..." : "")}
+                </p>
                 <p className="font-bold text-orange-500 text-lg">Price: {meal.price} TK</p>
               </div>
             </motion.div>
@@ -92,7 +104,7 @@ const Home = () => {
               >
                 <img
                   src={review.reviewerImage}
-                  alt={review.name}
+                  alt={review.reviewerName}
                   className="w-20 h-20 rounded-full object-cover mb-4"
                 />
                 <h3 className="text-lg font-semibold">{review.reviewerName}</h3>

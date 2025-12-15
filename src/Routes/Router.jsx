@@ -18,11 +18,15 @@ import FavoriteMeals from "../pages/FavoriteMeals";
 import MyMeals from "../pages/MyMeals";
 import OrderRequests from "../pages/OrderRequests";
 import ManageUsers from "../pages/ManageUsers";
+import ManageRequests from "../pages/ManageRequests";
+import PlatformStats from "../pages/PlatformStats";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,   // <-- FIXED
@@ -55,6 +59,7 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "profile",
@@ -95,11 +100,20 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "manage-requests",
+        element: <ManageRequests />,
+      },
+      {
+        path: "platform-stats",
+        element: <PlatformStats />,
       }
 
 
 
-    ],
+
+],
   }
 
 ]);

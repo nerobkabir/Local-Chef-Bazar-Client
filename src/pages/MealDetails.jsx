@@ -20,31 +20,37 @@ const MealDetails = () => {
 
   // Fetch meal & reviews
   useEffect(() => {
-    if (!user) {
-      navigate("/auth/login");
-      return;
-    }
+  if (!user) {
+    navigate("/auth/login");
+    return;
+  }
 
-    const fetchMealAndReviews = async () => {
-      try {
-        const mealRes = await fetch("http://localhost:3000/meals");
-        const mealsData = await mealRes.json();
-        const selectedMeal = mealsData.find((m) => m._id === mealId);
-        setMeal(selectedMeal);
-
-        const reviewRes = await fetch(`http://localhost:3000/reviews/${mealId}`);
-        const reviewsData = await reviewRes.json();
-        setReviews(reviewsData || []);
-
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
+  const fetchMealAndReviews = async () => {
+    try {
+      // ✅ fetch single meal
+      const mealRes = await fetch(`http://localhost:3000/meals/${mealId}`);
+      const mealData = await mealRes.json();
+      if (mealData.success) {
+        setMeal(mealData.data);
+      } else {
+        setMeal(null);
       }
-    };
 
-    fetchMealAndReviews();
-  }, [mealId, user, navigate]);
+      // fetch reviews
+      const reviewRes = await fetch(`http://localhost:3000/reviews/${mealId}`);
+      const reviewsData = await reviewRes.json();
+      setReviews(reviewsData || []);
+
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+    }
+  };
+
+  fetchMealAndReviews();
+}, [mealId, user, navigate]);
+
 
   // Add to Favorites
   const handleAddFavorite = async () => {
@@ -138,6 +144,10 @@ const MealDetails = () => {
           <div>
             <h2 className="text-4xl font-bold text-gray-800 mb-4">{meal.foodName}</h2>
             <p className="text-gray-600 mb-2"><span className="font-semibold">Chef:</span> {meal.chefName}</p>
+            <p className="text-gray-600 mb-2">
+              <span className="font-semibold">Chef ID:</span> {meal.chefId}
+            </p>
+
             <p className="text-gray-600 mb-2"><span className="font-semibold">Experience:</span> {meal.chefExperience || "N/A"}</p>
             <p className="text-gray-600 mb-2"><span className="font-semibold">Delivery Area:</span> {meal.deliveryArea || "All Areas"}</p>
             <p className="text-gray-600 mb-2"><span className="font-semibold">Estimated Delivery:</span> {meal.deliveryTime || "30-40 mins"}</p>

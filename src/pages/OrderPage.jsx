@@ -14,15 +14,25 @@ const OrderPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadMeal = async () => {
-      const res = await fetch("http://localhost:3000/meals");
+  const loadMeal = async () => {
+    try {
+      const res = await fetch(`http://localhost:3000/meals/${mealId}`);
       const data = await res.json();
-      const selectedMeal = data.find((m) => m._id === mealId);
-      setMeal(selectedMeal);
+      if (data.success) {
+        setMeal(data.data);
+      } else {
+        setMeal(null);
+      }
+    } catch (err) {
+      console.error(err);
+      setMeal(null);
+    } finally {
       setLoading(false);
-    };
-    loadMeal();
-  }, [mealId]);
+    }
+  };
+  loadMeal();
+}, [mealId]);
+
 
   // 🔴 NOT LOGGED IN
   if (!user) {

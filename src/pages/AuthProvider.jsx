@@ -7,6 +7,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
+import FullPageLoader from "../components/FullPageLoader";
+
+
 
 export const AuthContext = createContext(null);
 
@@ -14,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Register User
+  // Register
   const registerUser = async (email, password, name, photoURL, address) => {
     setLoading(true);
 
@@ -25,7 +28,6 @@ const AuthProvider = ({ children }) => {
       photoURL,
     });
 
-    // Save user in backend DB
     await fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,28 +45,32 @@ const AuthProvider = ({ children }) => {
     return result.user;
   };
 
-  // Login User
+  // Login
   const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Logout User
+  // Logout
   const logoutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
-  // Observe Auth State
+  // Auth Observer
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        // Fetch user from backend to get role
-        const res = await fetch(`http://localhost:3000/users?email=${currentUser.email}`);
+        const res = await fetch(
+          `http://localhost:3000/users?email=${currentUser.email}`
+        );
         const data = await res.json();
 
         setUser({
           ...currentUser,
           role: data?.role || "user",
+          status: data?.status || "active",
+          chefId: data?.chefId || null,
         });
       } else {
         setUser(null);
@@ -75,7 +81,11 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const info = {
+  if (loading) {
+    return <FullPageLoader />;
+  }
+
+  const authInfo = {
     user,
     loading,
     registerUser,
@@ -83,7 +93,11 @@ const AuthProvider = ({ children }) => {
     logoutUser,
   };
 
-  return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
