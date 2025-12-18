@@ -41,15 +41,16 @@ const AuthProvider = ({ children }) => {
       }),
     });
 
-    // ✅ SOLUTION: Manually fetch user data and update state
+    // ✅ Manually fetch user data and update state
     const res = await fetch(`http://localhost:3000/users?email=${email}`);
     const userData = await res.json();
 
-    // Manually set user with updated profile
+    // ✅ FIX: address field add kora hoise
     setUser({
       ...result.user,
       displayName: name,
       photoURL,
+      address: userData?.address || null,
       role: userData?.role || "user",
       status: userData?.status || "active",
       chefId: userData?.chefId || null,
@@ -80,8 +81,10 @@ const AuthProvider = ({ children }) => {
         );
         const data = await res.json();
 
+        // ✅ FIX: address field add kora hoise ekhane o
         setUser({
           ...currentUser,
+          address: data?.address || null,
           role: data?.role || "user",
           status: data?.status || "active",
           chefId: data?.chefId || null,

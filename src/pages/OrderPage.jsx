@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "../pages/AuthProvider";
 import useTitle from "../hooks/useTitle";
@@ -11,30 +12,41 @@ const OrderPage = () => {
   useTitle("Place Order");
 
   const [meal, setMeal] = useState(null);
-  const [quantity, setQuantity] = useState(1);
-  const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-  const loadMeal = async () => {
-    try {
-      const res = await fetch(`http://localhost:3000/meals/${mealId}`);
-      const data = await res.json();
-      if (data.success) {
-        setMeal(data.data);
-      } else {
-        setMeal(null);
-      }
-    } catch (err) {
-      console.error(err);
-      setMeal(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-  loadMeal();
-}, [mealId]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      quantity: 1,
+      userAddress: "",
+    },
+  });
 
+  const quantity = watch("quantity");
+
+  useEffect(() => {
+    const loadMeal = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/meals/${mealId}`);
+        const data = await res.json();
+        if (data.success) {
+          setMeal(data.data);
+        } else {
+          setMeal(null);
+        }
+      } catch (err) {
+        console.error(err);
+        setMeal(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMeal();
+  }, [mealId]);
 
   // 🔴 NOT LOGGED IN
   if (!user) {
@@ -65,17 +77,14 @@ const OrderPage = () => {
 
   const totalPrice = meal.price * quantity;
 
-  const handleOrderSubmit = async () => {
-    if (!address) {
-      return Swal.fire("Error", "Please enter a delivery address", "error");
-    }
-
+  const onSubmit = async (formData) => {
     const confirm = await Swal.fire({
       title: "Confirm Order?",
-      html: `Your total price is <b>${totalPrice} TK</b>.`,
+      html: `Your total price is <b>${totalPrice} TK</b>. Do you want to confirm the order?`,
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes, confirm",
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
     });
 
     if (!confirm.isConfirmed) return;
@@ -84,27 +93,35 @@ const OrderPage = () => {
       foodId: meal._id,
       mealName: meal.foodName,
       price: meal.price,
-      quantity,
+      quantity: formData.quantity,
       chefId: meal.chefId,
+      paymentStatus: "Pending",
       userEmail: user.email,
-      userAddress: address,
+      userAddress: formData.userAddress,
+      orderStatus: "pending",
+      orderTime: new Date().toISOString(),
     };
 
-    const res = await fetch("http://localhost:3000/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    // 🔴 BACKEND FRAUD BLOCK HANDLE
-    if (!res.ok) {
-      return Swal.fire("Blocked", data.message || "Action not allowed", "error");
+      // 🔴 BACKEND FRAUD BLOCK HANDLE
+      if (!res.ok) {
+        return Swal.fire("Blocked", data.message || "Action not allowed", "error");
+      }
+
+      Swal.fire("Success!", "Order placed successfully!", "success");
+      navigate("/meals");
+    } catch (error) {
+      console.error("Order submission error:", error);
+      Swal.fire("Error", "Failed to place order. Please try again.", "error");
     }
-
-    Swal.fire("Success!", "Order placed successfully!", "success");
-    navigate("/meals");
   };
 
   return (
@@ -113,41 +130,76 @@ const OrderPage = () => {
         Confirm Your Order
       </h2>
 
-      <div className="space-y-3">
-        <p><b>Meal Name:</b> {meal.foodName}</p>
-        <p><b>Price:</b> {meal.price} TK</p>
-        <p><b>Your Email:</b> {user.email}</p>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+        <div>
+          <p>
+            <b>Meal Name:</b> {meal.foodName}
+          </p>
+        </div>
 
-        <label className="block font-semibold mt-4">Quantity:</label>
-        <input
-          type="number"
-          min="1"
-          className="border px-3 py-2 rounded w-full"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        />
+        <div>
+          <p>
+            <b>Price:</b> {meal.price} TK
+          </p>
+        </div>
 
-        <label className="block font-semibold mt-4">
-          Delivery Address:
-        </label>
-        <textarea
-          className="border px-3 py-2 rounded w-full"
-          placeholder="Enter full address..."
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-        />
+        <div>
+          <p>
+            <b>Your Email:</b> {user.email}
+          </p>
+        </div>
 
-        <p className="mt-4 text-xl font-bold">
-          Total Price: {totalPrice} TK
-        </p>
+        <div>
+          <label className="block font-semibold mt-4">Quantity:</label>
+          <input
+            type="number"
+            min="1"
+            className="border px-3 py-2 rounded w-full"
+            {...register("quantity", {
+              required: "Quantity is required",
+              min: { value: 1, message: "Quantity must be at least 1" },
+              valueAsNumber: true,
+            })}
+          />
+          {errors.quantity && (
+            <p className="text-red-500 text-sm mt-1">{errors.quantity.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block font-semibold mt-4">
+            Delivery Address: <span className="text-red-500">*</span>
+          </label>
+          <textarea
+            className="border px-3 py-2 rounded w-full"
+            placeholder="Enter full address..."
+            rows="3"
+            {...register("userAddress", {
+              required: "Delivery address is required",
+              minLength: {
+                value: 10,
+                message: "Address must be at least 10 characters",
+              },
+            })}
+          />
+          {errors.userAddress && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.userAddress.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <p className="mt-4 text-xl font-bold">Total Price: {totalPrice} TK</p>
+        </div>
 
         <button
-          onClick={handleOrderSubmit}
+          type="submit"
           className="w-full bg-orange-600 text-white py-3 rounded-xl mt-6 hover:bg-orange-700 transition"
         >
           Confirm Order
         </button>
-      </div>
+      </form>
     </div>
   );
 };
