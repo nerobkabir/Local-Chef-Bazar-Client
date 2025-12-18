@@ -9,8 +9,6 @@ import {
 import { auth } from "../firebase/firebase.init";
 import FullPageLoader from "../components/FullPageLoader";
 
-
-
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -23,11 +21,13 @@ const AuthProvider = ({ children }) => {
 
     const result = await createUserWithEmailAndPassword(auth, email, password);
 
+    // Update Firebase profile
     await updateProfile(result.user, {
       displayName: name,
       photoURL,
     });
 
+    // Save to MongoDB
     await fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,6 +39,20 @@ const AuthProvider = ({ children }) => {
         role: "user",
         status: "active",
       }),
+    });
+
+    // ✅ SOLUTION: Manually fetch user data and update state
+    const res = await fetch(`http://localhost:3000/users?email=${email}`);
+    const userData = await res.json();
+
+    // Manually set user with updated profile
+    setUser({
+      ...result.user,
+      displayName: name,
+      photoURL,
+      role: userData?.role || "user",
+      status: userData?.status || "active",
+      chefId: userData?.chefId || null,
     });
 
     setLoading(false);

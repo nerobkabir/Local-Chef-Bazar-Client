@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../pages/AuthProvider";
 import Swal from "sweetalert2";
+import useTitle from "../hooks/useTitle";
 
 const FavoriteMeals = () => {
   const { user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  useTitle("My Favorite Meals");
 
   // Fetch favorite meals
   useEffect(() => {

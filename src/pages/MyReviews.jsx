@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../pages/AuthProvider";
 import Swal from "sweetalert2";
+import useTitle from "../hooks/useTitle";
 
 const MyReviews = () => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editReview, setEditReview] = useState(null);
+  useTitle("My Reviews");
 
   // Load user's reviews
   useEffect(() => {

@@ -3,11 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/AuthProvider";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
+import useTitle from "../hooks/useTitle";
 
 const MealDetails = () => {
   const { mealId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  useTitle("Meal Details");
 
   const [meal, setMeal] = useState(null);
   const [reviews, setReviews] = useState([]);

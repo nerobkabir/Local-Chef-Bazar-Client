@@ -9,9 +9,11 @@ import {
   Pie,
   Cell,
 } from "recharts";
+import useTitle from "../hooks/useTitle";
 
 const PlatformStats = () => {
   const [stats, setStats] = useState(null);
+  useTitle("Platform Statistics");
 
   useEffect(() => {
     fetch("http://localhost:3000/admin-stats")

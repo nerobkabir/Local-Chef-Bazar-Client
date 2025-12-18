@@ -13,6 +13,7 @@ import ProfilePage from "../pages/ProfilePage";
 import MyOrders from "../pages/MyOrders";
 import PaymentPage from "../pages/PaymentPage";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import PaymentCancel from "../pages/PaymentCancel";
 import MyReviews from "../pages/MyReviews";
 import FavoriteMeals from "../pages/FavoriteMeals";
 import MyMeals from "../pages/MyMeals";
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,   // <-- FIXED
+        index: true,
         element: <Home />,
       },
       {
@@ -44,18 +45,16 @@ export const router = createBrowserRouter([
         path: "order/:mealId",
         element: <OrderPage />,
       },
-
-    ]
+    ],
   },
   {
     path: "auth",
     element: <RootLayout />,
     children: [
       { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> }
+      { path: "register", element: <Register /> },
     ],
   },
-
   {
     path: "dashboard",
     element: <Dashboard />,
@@ -75,11 +74,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "pay/:orderId",
-        element: <PaymentPage />,   
+        element: <PaymentPage />,
       },
       {
         path: "payment-success",
         element: <PaymentSuccess />,
+      },
+      {
+        path: "payment-cancel",
+        element: <PaymentCancel />,
       },
       {
         path: "my-reviews",
@@ -108,12 +111,7 @@ export const router = createBrowserRouter([
       {
         path: "platform-stats",
         element: <PlatformStats />,
-      }
-
-
-
-
-],
-  }
-
+      },
+    ],
+  },
 ]);

@@ -2,11 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../pages/AuthProvider";
+import useTitle from "../hooks/useTitle";
 
 const OrderPage = () => {
   const { mealId } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  useTitle("Place Order");
 
   const [meal, setMeal] = useState(null);
   const [quantity, setQuantity] = useState(1);

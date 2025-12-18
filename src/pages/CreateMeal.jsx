@@ -3,12 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../pages/AuthProvider";
 import Swal from "sweetalert2";
+import useTitle from "../hooks/useTitle";
 
 const CreateMeal = () => {
   const { register, handleSubmit, reset } = useForm();
   const { user } = useContext(AuthContext);
   const [userStatus, setUserStatus] = useState(null);
   const [loading, setLoading] = useState(true);
+  useTitle("Create Meal");
 
   // Fetch user info (status) from backend
   useEffect(() => {
