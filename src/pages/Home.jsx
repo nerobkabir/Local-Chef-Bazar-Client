@@ -6,26 +6,46 @@ import useTitle from "../hooks/useTitle";
 
 const Home = () => {
   const [meals, setMeals] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState([]); // ✅ Empty array দিয়ে initialize
   const navigate = useNavigate();
   useTitle("Home");
 
   useEffect(() => {
     // Fetch first 6 meals
-    fetch("http://localhost:3000/meals?page=1&limit=6")
+    fetch("https://server-side-eight-gray.vercel.app/meals?page=1&limit=6")
       .then((res) => res.json())
       .then((result) => {
-        if (result.success) {
+        if (result.success && Array.isArray(result.data)) {
           setMeals(result.data);
+        } else {
+          setMeals([]);
         }
       })
-      .catch((err) => console.error("Meals fetch error:", err));
+      .catch((err) => {
+        console.error("Meals fetch error:", err);
+        setMeals([]);
+      });
 
     // Fetch all reviews
-    fetch("http://localhost:3000/reviews")
+    fetch("https://server-side-eight-gray.vercel.app/reviews")
       .then((res) => res.json())
-      .then((data) => setReviews(data))
-      .catch((err) => console.error("Reviews fetch error:", err));
+      .then((data) => {
+        console.log("Reviews data:", data);
+        
+        // ✅ Check: data array কিনা
+        if (Array.isArray(data)) {
+          setReviews(data);
+        } else if (data?.data && Array.isArray(data.data)) {
+          setReviews(data.data);
+        } else {
+          console.error("Reviews is not an array:", data);
+          setReviews([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Reviews fetch error:", err);
+        setReviews([]);
+      });
   }, []);
 
   // Animation variants
@@ -253,75 +273,84 @@ const Home = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-        >
-          {meals.map((meal, index) => (
-            <motion.div
-              key={meal._id}
-              variants={itemVariants}
-              whileHover={{ y: -8 }}
-              className="group bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl cursor-pointer border border-gray-100"
-              onClick={() => navigate(`/meal-details/${meal._id}`)}
-            >
-              {/* Image Container */}
-              <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-100 to-red-100">
-                <img
-                  src={meal.foodImage}
-                  alt={meal.foodName}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                
-                {/* Overlay Badge */}
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                    <span className="font-bold text-sm">{meal.rating || 4.5}</span>
-                  </div>
-                </div>
-
-                {/* Price Badge */}
-                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full shadow-lg font-bold">
-                  ৳{meal.price}
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
-                  {meal.foodName}
-                </h3>
-                
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                  {meal.ingredients?.slice(0, 3).join(", ")}
-                  {meal.ingredients?.length > 3 ? "..." : ""}
-                </p>
-
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
-                      <ChefHat className="w-4 h-4 text-white" />
+        {meals.length > 0 ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
+            {meals.map((meal, index) => (
+              <motion.div
+                key={meal._id}
+                variants={itemVariants}
+                whileHover={{ y: -8 }}
+                className="group bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl cursor-pointer border border-gray-100"
+                onClick={() => navigate(`/meal-details/${meal._id}`)}
+              >
+                {/* Image Container */}
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-100 to-red-100">
+                  <img
+                    src={meal.foodImage}
+                    alt={meal.foodName}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  
+                  {/* Overlay Badge */}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                      <span className="font-bold text-sm">{meal.rating || 4.5}</span>
                     </div>
-                    <span className="text-sm text-gray-600 font-medium">
-                      {meal.chefName || "Home Chef"}
-                    </span>
                   </div>
 
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className="text-orange-600 font-semibold group-hover:text-orange-700"
-                  >
-                    View Details →
-                  </motion.div>
+                  {/* Price Badge */}
+                  <div className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full shadow-lg font-bold">
+                    ৳{meal.price}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
+                    {meal.foodName}
+                  </h3>
+                  
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    {/* ✅ Safe ingredients handling */}
+                    {Array.isArray(meal.ingredients) 
+                      ? meal.ingredients.slice(0, 3).join(", ") + (meal.ingredients.length > 3 ? "..." : "")
+                      : meal.ingredients || "Delicious homemade meal"
+                    }
+                  </p>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                        <ChefHat className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-600 font-medium">
+                        {meal.chefName || "Home Chef"}
+                      </span>
+                    </div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.1 }}
+                      className="text-orange-600 font-semibold group-hover:text-orange-700"
+                    >
+                      View Details →
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Loading meals...</p>
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -362,56 +391,63 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-          >
-            {reviews.slice(0, 6).map((review) => (
-              <motion.div
-                key={review._id}
-                variants={itemVariants}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-3xl shadow-lg p-6 md:p-8 transition-all hover:shadow-2xl border border-gray-100"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${
-                        i < review.rating
-                          ? "text-yellow-500 fill-yellow-500"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Review Text */}
-                <p className="text-gray-700 mb-6 leading-relaxed">
-                  "{review.comment}"
-                </p>
-
-                {/* Reviewer Info */}
-                <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
-                  <img
-                    src={review.reviewerImage}
-                    alt={review.reviewerName}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-orange-200"
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900">
-                      {review.reviewerName}
-                    </h4>
-                    <p className="text-sm text-gray-600">Verified Customer</p>
+          {/* ✅ Conditional Rendering */}
+          {reviews.length > 0 ? (
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            >
+              {reviews.slice(0, 6).map((review) => (
+                <motion.div
+                  key={review._id}
+                  variants={itemVariants}
+                  whileHover={{ y: -5 }}
+                  className="bg-white rounded-3xl shadow-lg p-6 md:p-8 transition-all hover:shadow-2xl border border-gray-100"
+                >
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${
+                          i < review.rating
+                            ? "text-yellow-500 fill-yellow-500"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+
+                  {/* Review Text */}
+                  <p className="text-gray-700 mb-6 leading-relaxed">
+                    "{review.comment}"
+                  </p>
+
+                  {/* Reviewer Info */}
+                  <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
+                    <img
+                      src={review.reviewerImage}
+                      alt={review.reviewerName}
+                      className="w-12 h-12 rounded-full object-cover border-2 border-orange-200"
+                    />
+                    <div>
+                      <h4 className="font-bold text-gray-900">
+                        {review.reviewerName}
+                      </h4>
+                      <p className="text-sm text-gray-600">Verified Customer</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">No reviews yet. Be the first to review!</p>
+            </div>
+          )}
         </div>
       </section>
 

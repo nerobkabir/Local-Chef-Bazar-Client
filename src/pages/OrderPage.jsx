@@ -31,7 +31,7 @@ const OrderPage = () => {
   useEffect(() => {
     const loadMeal = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/meals/${mealId}`);
+        const res = await fetch(`https://server-side-eight-gray.vercel.app/meals/${mealId}`);
         const data = await res.json();
         if (data.success) {
           setMeal(data.data);
@@ -103,7 +103,7 @@ const OrderPage = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/orders", {
+      const res = await fetch("https://server-side-eight-gray.vercel.app/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),

@@ -30,7 +30,7 @@ const MealDetails = () => {
   const fetchMealAndReviews = async () => {
     try {
       // ✅ fetch single meal
-      const mealRes = await fetch(`http://localhost:3000/meals/${mealId}`);
+      const mealRes = await fetch(`https://server-side-eight-gray.vercel.app/meals/${mealId}`);
       const mealData = await mealRes.json();
       if (mealData.success) {
         setMeal(mealData.data);
@@ -39,7 +39,7 @@ const MealDetails = () => {
       }
 
       // fetch reviews
-      const reviewRes = await fetch(`http://localhost:3000/reviews/${mealId}`);
+      const reviewRes = await fetch(`https://server-side-eight-gray.vercel.app/reviews/${mealId}`);
       const reviewsData = await reviewRes.json();
       setReviews(reviewsData || []);
 
@@ -57,7 +57,7 @@ const MealDetails = () => {
   // Add to Favorites
   const handleAddFavorite = async () => {
     try {
-      const res = await fetch("http://localhost:3000/favorites", {
+      const res = await fetch("https://server-side-eight-gray.vercel.app/favorites", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -99,7 +99,7 @@ const MealDetails = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/reviews", {
+      const res = await fetch("https://server-side-eight-gray.vercel.app/reviews", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newReview),

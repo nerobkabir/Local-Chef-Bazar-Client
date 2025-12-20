@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Meals from "../pages/Meals";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/Dashboard"; 
 import CreateMeal from "../pages/CreateMeal";
 import MealDetails from "../pages/MealDetails";
 import OrderPage from "../pages/OrderPage";

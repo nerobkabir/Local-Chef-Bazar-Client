@@ -20,9 +20,10 @@ const MyOrders = () => {
     const loadOrders = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/orders?email=${user.email}`
+          `https://server-side-eight-gray.vercel.app/orders?email=${user.email}`
         );
         const data = await res.json();
+        console.log(data)
         setOrders(data.data || []);
       } catch (error) {
         console.error("Error loading orders:", error);

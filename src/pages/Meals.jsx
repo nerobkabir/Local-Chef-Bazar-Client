@@ -33,7 +33,7 @@ const Meals = () => {
       setIsLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/meals?page=${currentPage}&limit=${limit}`
+          `https://server-side-eight-gray.vercel.app/meals?page=${currentPage}&limit=${limit}`
         );
         const result = await res.json();
 

@@ -15,7 +15,7 @@ const MyReviews = () => {
     if (!user?.email) return;
 
     const loadReviews = async () => {
-      const res = await fetch(`http://localhost:3000/my-reviews?email=${user.email}`);
+      const res = await fetch(`https://server-side-eight-gray.vercel.app/my-reviews?email=${user.email}`);
       const data = await res.json();
       setReviews(data.data || []);
     };
@@ -35,7 +35,7 @@ const MyReviews = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await fetch(`http://localhost:3000/reviews/${id}`, { method: "DELETE" });
+        await fetch(`https://server-side-eight-gray.vercel.app/reviews/${id}`, { method: "DELETE" });
         setReviews(reviews.filter((r) => r._id !== id));
         Swal.fire("Deleted!", "Review has been deleted.", "success");
       }
@@ -50,7 +50,7 @@ const MyReviews = () => {
 
   // UPDATE review
   const handleUpdate = async () => {
-    const res = await fetch(`http://localhost:3000/reviews/${editReview._id}`, {
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/reviews/${editReview._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rating: editReview.rating, comment: editReview.comment }),

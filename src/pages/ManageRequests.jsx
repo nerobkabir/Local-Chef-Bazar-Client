@@ -8,7 +8,7 @@ const ManageRequests = () => {
   useTitle("Manage Role Requests");
 
   const fetchRequests = async () => {
-    const res = await fetch("http://localhost:3000/role-requests");
+    const res = await fetch("https://server-side-eight-gray.vercel.app/role-requests");
     const data = await res.json();
     if (data.success) setRequests(data.data);
   };
@@ -30,7 +30,7 @@ const ManageRequests = () => {
 
     if (!result.isConfirmed) return;
 
-    const res = await fetch(`http://localhost:3000/role-requests/approve/${id}`, {
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/role-requests/approve/${id}`, {
       method: "PUT",
     });
     const data = await res.json();
@@ -59,7 +59,7 @@ const ManageRequests = () => {
 
     if (!result.isConfirmed) return;
 
-    const res = await fetch(`http://localhost:3000/role-requests/reject/${id}`, {
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/role-requests/reject/${id}`, {
       method: "PUT",
     });
     const data = await res.json();

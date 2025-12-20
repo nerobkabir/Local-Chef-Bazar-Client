@@ -24,7 +24,7 @@ const OrderRequests = () => {
     setLoading(true);
 
     // First check if user is a chef
-    fetch(`http://localhost:3000/users?email=${user.email}`)
+    fetch(`https://server-side-eight-gray.vercel.app/users?email=${user.email}`)
       .then((res) => res.json())
       .then((userData) => {
         console.log("📌 DB USER Response:", userData);
@@ -37,7 +37,7 @@ const OrderRequests = () => {
           console.log("✅ User is a Chef");
           
           // Fetch orders for this chef
-          return fetch(`http://localhost:3000/chef-orders?email=${user.email}`);
+          return fetch(`https://server-side-eight-gray.vercel.app/chef-orders?email=${user.email}`);
         } else {
           console.log("❌ User is not a chef");
           setIsChef(false);
@@ -77,7 +77,7 @@ const OrderRequests = () => {
   const updateStatus = async (id, newStatus) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/orders/status/${id}`,
+        `https://server-side-eight-gray.vercel.app/orders/status/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

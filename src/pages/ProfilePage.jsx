@@ -25,7 +25,7 @@ const ProfilePage = () => {
       requestType: type,
     };
 
-    const res = await fetch("http://localhost:3000/role-request", {
+    const res = await fetch("https://server-side-eight-gray.vercel.app/role-request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestData),

@@ -18,7 +18,7 @@ const CreateMeal = () => {
 
     const fetchUserStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/users?email=${user.email}`);
+        const res = await fetch(`https://server-side-eight-gray.vercel.app/users?email=${user.email}`);
         const data = await res.json();
         setUserStatus(data.status || "active"); // default active
       } catch (error) {
@@ -75,7 +75,7 @@ const CreateMeal = () => {
       };
 
       // Send to backend
-      const res = await fetch("http://localhost:3000/create-meal", {
+      const res = await fetch("https://server-side-eight-gray.vercel.app/create-meal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(mealData),

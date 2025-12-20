@@ -7,7 +7,7 @@ const ManageUsers = () => {
   useTitle("Manage Users");
 
   useEffect(() => {
-    fetch("http://localhost:3000/all-users")
+    fetch("https://server-side-eight-gray.vercel.app/all-users")
       .then(res => res.json())
       .then(data => setUsers(data.data || []));
   }, []);
@@ -26,7 +26,7 @@ const ManageUsers = () => {
     if (!confirm.isConfirmed) return;
 
     const res = await fetch(
-      `http://localhost:3000/users/fraud/${id}`,
+      `https://server-side-eight-gray.vercel.app/users/fraud/${id}`,
       { method: "PUT" }
     );
 

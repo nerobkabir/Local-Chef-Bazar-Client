@@ -15,7 +15,7 @@ const FavoriteMeals = () => {
 
     const fetchFavorites = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/favorites?email=${user.email}`);
+        const res = await fetch(`https://server-side-eight-gray.vercel.app/favorites?email=${user.email}`);
         const data = await res.json();
         setFavorites(data.data || []);
         setLoading(false);
@@ -41,7 +41,7 @@ const FavoriteMeals = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`http://localhost:3000/favorites/${id}`, {
+          const res = await fetch(`https://server-side-eight-gray.vercel.app/favorites/${id}`, {
             method: "DELETE",
           });
           const data = await res.json();

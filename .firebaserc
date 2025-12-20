@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "localchefbazaar-31da8",
+    "prod": "localchefbazaar-31da8"
+  },
+  "targets": {},
+  "etags": {}
+}

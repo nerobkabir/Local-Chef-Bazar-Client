@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
     });
 
     // Save to MongoDB
-    await fetch("http://localhost:3000/users", {
+    await fetch("https://server-side-eight-gray.vercel.app/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
     });
 
     // ✅ Manually fetch user data and update state
-    const res = await fetch(`http://localhost:3000/users?email=${email}`);
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/users?email=${email}`);
     const userData = await res.json();
 
     // ✅ FIX: address field add kora hoise
@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const res = await fetch(
-          `http://localhost:3000/users?email=${currentUser.email}`
+          `https://server-side-eight-gray.vercel.app/users?email=${currentUser.email}`
         );
         const data = await res.json();
 

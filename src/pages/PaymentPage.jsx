@@ -17,7 +17,7 @@ const PaymentPage = () => {
 
         console.log("🔄 Initiating payment for order:", orderId);
 
-        const res = await fetch("http://localhost:3000/create-checkout-session", {
+        const res = await fetch("https://server-side-eight-gray.vercel.app/create-checkout-session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ orderId }),

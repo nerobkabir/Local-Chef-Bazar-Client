@@ -16,7 +16,7 @@ const PlatformStats = () => {
   useTitle("Platform Statistics");
 
   useEffect(() => {
-    fetch("http://localhost:3000/admin-stats")
+    fetch("https://server-side-eight-gray.vercel.app/admin-stats")
       .then((res) => res.json())
       .then((data) => setStats(data.data));
   }, []);

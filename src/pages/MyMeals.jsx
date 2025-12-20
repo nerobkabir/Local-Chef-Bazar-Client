@@ -11,7 +11,7 @@ const MyMeals = () => {
   useTitle("My Meals");
 
   const fetchMeals = async () => {
-    const res = await fetch(`http://localhost:3000/my-meals?email=${user.email}`);
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/my-meals?email=${user.email}`);
     const data = await res.json();
     setMeals(data.data || []);
   };
@@ -32,7 +32,7 @@ const MyMeals = () => {
     });
 
     if (result.isConfirmed) {
-      const res = await fetch(`http://localhost:3000/meals/${id}`, {
+      const res = await fetch(`https://server-side-eight-gray.vercel.app/meals/${id}`, {
         method: "DELETE",
       });
 
@@ -67,7 +67,7 @@ const MyMeals = () => {
       chefExperience: form.chefExperience.value,
     };
 
-    const res = await fetch(`http://localhost:3000/meals/${editingMeal._id}`, {
+    const res = await fetch(`https://server-side-eight-gray.vercel.app/meals/${editingMeal._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedMeal),

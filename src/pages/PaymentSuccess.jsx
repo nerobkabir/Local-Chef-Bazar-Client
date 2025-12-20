@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
       try {
         // Payment status update করার জন্য backend এ request পাঠান
         const response = await fetch(
-          `http://localhost:3000/orders/payment/${orderId}`,
+          `https://server-side-eight-gray.vercel.app/orders/payment/${orderId}`,
           {
             method: "PUT",
             headers: {
