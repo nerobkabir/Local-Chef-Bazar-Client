@@ -36,7 +36,6 @@ const PlatformStats = () => {
         Platform Statistics
       </h1>
 
-      {/* ================= Cards ================= */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
         <div className="bg-white shadow rounded-xl p-6 text-center">
           <p className="text-gray-500">Total Users</p>
@@ -65,9 +64,7 @@ const PlatformStats = () => {
         </div>
       </div>
 
-      {/* ================= Charts ================= */}
       <div className="grid md:grid-cols-2 gap-12">
-        {/* Orders Pie Chart */}
         <div className="bg-white p-6 rounded-xl shadow">
           <h2 className="text-xl font-bold mb-4 text-center">
             Order Status Distribution
@@ -91,7 +88,6 @@ const PlatformStats = () => {
           </PieChart>
         </div>
 
-        {/* Payments Bar Chart */}
         <div className="bg-white p-6 rounded-xl shadow">
           <h2 className="text-xl font-bold mb-4 text-center">
             Payments Overview

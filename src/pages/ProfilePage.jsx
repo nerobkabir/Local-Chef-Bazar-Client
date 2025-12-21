@@ -63,9 +63,7 @@ const ProfilePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-12 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Profile Card */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-          {/* Header Background */}
           <div className="h-40 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 relative">
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
@@ -80,16 +78,13 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {/* Profile Content */}
           <div className="pt-20 pb-8 px-8">
-            {/* Name and Title */}
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-800 mb-2">
                 {user.displayName}
               </h2>
               <p className="text-slate-600 text-lg">{user.email}</p>
               
-              {/* Role and Status Badges */}
               <div className="flex items-center justify-center gap-3 mt-4">
                 <span
                   className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold border ${getRoleBadgeColor(
@@ -108,9 +103,7 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            {/* Information Grid */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              {/* Address Card */}
               <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl p-6 border border-slate-200 hover:shadow-md transition-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
@@ -145,7 +138,6 @@ const ProfilePage = () => {
                 </div>
               </div>
 
-              {/* Chef ID Card (if applicable) */}
               {user.role === "chef" && (
                 <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border border-orange-200 hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-4">
@@ -177,7 +169,6 @@ const ProfilePage = () => {
               )}
             </div>
 
-            {/* Role Request Section */}
             {(user.role !== "chef" || user.role !== "admin") && (
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-200">
                 <div className="text-center mb-6">
@@ -190,7 +181,6 @@ const ProfilePage = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-center gap-4">
-                  {/* Be a Chef Button */}
                   {user.role !== "chef" && user.role !== "admin" && (
                     <button
                       className="group relative px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 overflow-hidden"
@@ -216,7 +206,6 @@ const ProfilePage = () => {
                     </button>
                   )}
 
-                  {/* Be an Admin Button */}
                   {user.role !== "admin" && (
                     <button
                       className="group relative px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 overflow-hidden"
@@ -247,7 +236,6 @@ const ProfilePage = () => {
           </div>
         </div>
 
-        {/* Additional Info Card */}
         <div className="mt-6 bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
           <div className="flex items-center gap-3 text-slate-600">
             <svg

@@ -15,7 +15,7 @@ const PaymentPage = () => {
       try {
         setLoading(true);
 
-        console.log("🔄 Initiating payment for order:", orderId);
+        console.log(" Initiating payment for order:", orderId);
 
         const res = await fetch("https://server-side-eight-gray.vercel.app/create-checkout-session", {
           method: "POST",
@@ -25,18 +25,17 @@ const PaymentPage = () => {
 
         const data = await res.json();
 
-        console.log("📦 Payment response:", data);
+        console.log(" Payment response:", data);
 
         if (data.success && data.url) {
-          console.log("✅ Redirecting to Stripe...");
-          // Redirect to Stripe Checkout
+          console.log("Redirecting to Stripe...");
           window.location.href = data.url;
         } else {
           setError(data.message || "Failed to create payment session");
           setLoading(false);
         }
       } catch (err) {
-        console.error("❌ Payment error:", err);
+        console.error(" Payment error:", err);
         setError("Something went wrong. Please try again.");
         setLoading(false);
       }

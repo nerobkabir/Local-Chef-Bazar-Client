@@ -10,7 +10,6 @@ const PaymentSuccess = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Payment status update করুন
     const updatePaymentStatus = async () => {
       if (!orderId) {
         setError("Order ID not found");
@@ -19,7 +18,6 @@ const PaymentSuccess = () => {
       }
 
       try {
-        // Payment status update করার জন্য backend এ request পাঠান
         const response = await fetch(
           `https://server-side-eight-gray.vercel.app/orders/payment/${orderId}`,
           {
@@ -36,10 +34,9 @@ const PaymentSuccess = () => {
         const data = await response.json();
 
         if (data.success) {
-          console.log("✅ Payment status updated successfully");
+          console.log("Payment status updated successfully");
           setUpdating(false);
 
-          // 3 second পরে redirect করুন
           setTimeout(() => {
             navigate("/dashboard/my-orders");
           }, 3000);
@@ -48,7 +45,7 @@ const PaymentSuccess = () => {
           setUpdating(false);
         }
       } catch (err) {
-        console.error("❌ Error updating payment:", err);
+        console.error("Error updating payment:", err);
         setError("Failed to update payment status");
         setUpdating(false);
       }

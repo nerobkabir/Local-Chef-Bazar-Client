@@ -7,15 +7,12 @@ const Root = () => {
   return (
     <div className="min-h-screen flex flex-col">
 
-      {/* Navbar fixed top */}
       <Navbar />
 
-      {/* Main content grows */}
       <main className="flex-grow">
         <Outlet />
       </main>
 
-      {/* Footer always bottom */}
       <Footer />
     </div>
   );

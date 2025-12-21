@@ -1,7 +1,3 @@
-// ==========================================
-// Register.jsx
-// ==========================================
-
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../pages/AuthProvider";
@@ -51,9 +47,8 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex items-center justify-center p-4 py-12">
       <div className="w-full max-w-md">
-        {/* Register Card */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-          {/* Header Section */}
+   
           <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-10 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <div className="relative z-10">
@@ -77,10 +72,8 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Form Section */}
           <div className="px-8 py-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-              {/* Name Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Full Name
@@ -121,7 +114,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Email Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Email Address
@@ -163,7 +155,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Password Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Password
@@ -205,7 +196,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Confirm Password Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Confirm Password
@@ -247,7 +237,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Photo Upload */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Profile Photo
@@ -273,7 +262,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Address Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Address
@@ -320,7 +308,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 mt-6"
@@ -328,7 +315,6 @@ const Register = () => {
                 Create Account
               </button>
 
-              {/* Login Link */}
               <div className="text-center pt-4 border-t border-slate-200">
                 <p className="text-slate-600">
                   Already have an account?{" "}
@@ -344,7 +330,6 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Footer Text */}
         <p className="text-center text-slate-500 text-sm mt-6">
           By signing up, you agree to our Terms & Privacy Policy
         </p>

@@ -10,7 +10,7 @@ const MyReviews = () => {
   const [editReview, setEditReview] = useState(null);
   useTitle("My Reviews");
 
-  // Load user's reviews
+  // Load user reviews
   useEffect(() => {
     if (!user?.email) return;
 
@@ -42,7 +42,6 @@ const MyReviews = () => {
     });
   };
 
-  // OPEN update modal
   const openUpdateModal = (review) => {
     setEditReview(review);
     setModalOpen(true);

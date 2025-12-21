@@ -48,7 +48,6 @@ const OrderPage = () => {
     loadMeal();
   }, [mealId]);
 
-  // 🔴 NOT LOGGED IN
   if (!user) {
     return (
       <p className="text-center mt-20 text-xl text-gray-600">
@@ -57,7 +56,6 @@ const OrderPage = () => {
     );
   }
 
-  // 🔴 FRAUD USER BLOCK (FRONTEND)
   if (user.status === "fraud") {
     return (
       <div className="text-center mt-20">
@@ -111,7 +109,6 @@ const OrderPage = () => {
 
       const data = await res.json();
 
-      // 🔴 BACKEND FRAUD BLOCK HANDLE
       if (!res.ok) {
         return Swal.fire("Blocked", data.message || "Action not allowed", "error");
       }

@@ -157,12 +157,10 @@ const MyOrders = () => {
               key={order._id}
               className="p-6 bg-white rounded-2xl shadow-lg border-2 border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300"
             >
-              {/* Meal Name */}
               <h2 className="text-2xl font-bold text-orange-600 mb-4 border-b-2 border-orange-100 pb-2">
                 {order.mealName}
               </h2>
 
-              {/* Price Details */}
               <div className="space-y-3 text-gray-700 mb-4">
                 <div className="flex justify-between items-center">
                   <span className="font-semibold">💰 Price:</span>
@@ -181,7 +179,6 @@ const MyOrders = () => {
                   </span>
                 </div>
 
-                {/* Status Section */}
                 <div className="pt-3 border-t border-gray-200">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-semibold text-gray-600">
@@ -197,7 +194,6 @@ const MyOrders = () => {
                   </div>
                 </div>
 
-                {/* Chef Information */}
                 <div className="pt-3 border-t border-gray-200">
                   <div className="flex items-center gap-2 mb-1">
                     <User className="w-4 h-4 text-orange-600" />
@@ -211,7 +207,6 @@ const MyOrders = () => {
                   </div>
                 </div>
 
-                {/* Order Time */}
                 <div className="pt-3 border-t border-gray-200">
                   <div className="flex items-center gap-2 text-sm mb-1">
                     <Clock className="w-4 h-4 text-gray-500" />
@@ -225,7 +220,6 @@ const MyOrders = () => {
                   </p>
                 </div>
 
-                {/* Delivery Time (if delivered) */}
                 {order.orderStatus === "delivered" && order.deliveryTime && (
                   <div className="pt-3 border-t border-gray-200">
                     <div className="flex items-center gap-2 text-sm mb-1">
@@ -253,7 +247,6 @@ const MyOrders = () => {
                 </button>
               )}
 
-              {/* Payment Completed Badge */}
               {isPaid && (
                 <div className="mt-4 p-4 bg-green-50 border-2 border-green-200 rounded-xl text-center">
                   <p className="text-green-700 font-semibold flex items-center justify-center gap-2">
@@ -263,7 +256,6 @@ const MyOrders = () => {
                 </div>
               )}
 
-              {/* Waiting for Chef Acceptance */}
               {order.orderStatus === "pending" && (
                 <div className="mt-4 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl text-center">
                   <p className="text-yellow-700 font-semibold flex items-center justify-center gap-2">

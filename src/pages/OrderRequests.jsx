@@ -11,9 +11,6 @@ const OrderRequests = () => {
   const [isChef, setIsChef] = useState(false);
   useTitle("Order Requests");
 
-  /* ===============================
-     Load Orders by Chef Email
-  =============================== */
   useEffect(() => {
     if (!user?.email) {
       setLoading(false);
@@ -23,23 +20,20 @@ const OrderRequests = () => {
     console.log("🔍 Fetching orders for email:", user.email);
     setLoading(true);
 
-    // First check if user is a chef
     fetch(`https://server-side-eight-gray.vercel.app/users?email=${user.email}`)
       .then((res) => res.json())
       .then((userData) => {
-        console.log("📌 DB USER Response:", userData);
+        console.log("DB USER Response:", userData);
         
         const finalUser = userData?.data || userData;
         
-        // Check if user is chef
         if (finalUser?.role === "chef") {
           setIsChef(true);
-          console.log("✅ User is a Chef");
+          console.log("User is a Chef");
           
-          // Fetch orders for this chef
           return fetch(`https://server-side-eight-gray.vercel.app/chef-orders?email=${user.email}`);
         } else {
-          console.log("❌ User is not a chef");
+          console.log("User is not a chef");
           setIsChef(false);
           setLoading(false);
           return null;
@@ -52,28 +46,25 @@ const OrderRequests = () => {
       .then((data) => {
         if (!data) return;
         
-        console.log("📦 Chef Orders Response:", data);
+        console.log("Chef Orders Response:", data);
 
         if (data?.success && Array.isArray(data.data)) {
           setOrders(data.data);
-          console.log("✅ Orders loaded:", data.data.length);
+          console.log("Orders loaded:", data.data.length);
         } else {
-          console.log("⚠️ No orders found");
+          console.log(" No orders found");
           setOrders([]);
         }
 
         setLoading(false);
       })
       .catch((err) => {
-        console.error("❌ Error fetching orders:", err);
+        console.error("Error fetching orders:", err);
         setOrders([]);
         setLoading(false);
       });
   }, [user?.email]);
 
-  /* ===============================
-     Update Order Status
-  =============================== */
   const updateStatus = async (id, newStatus) => {
     try {
       const res = await fetch(
@@ -95,7 +86,6 @@ const OrderRequests = () => {
           timer: 2000,
         });
 
-        // ✅ Update local state
         setOrders((prev) =>
           prev.map((o) =>
             o._id === id ? { ...o, orderStatus: newStatus } : o
@@ -109,7 +99,7 @@ const OrderRequests = () => {
         });
       }
     } catch (err) {
-      console.error("❌ Update error:", err);
+      console.error(" Update error:", err);
       Swal.fire({
         icon: "error",
         title: "Error!",
@@ -118,11 +108,6 @@ const OrderRequests = () => {
     }
   };
 
-  /* ===============================
-     UI
-  =============================== */
-  
-  // ✅ Show loading state
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -131,7 +116,6 @@ const OrderRequests = () => {
     );
   }
 
-  // ✅ If user is not a chef
   if (!isChef) {
     return (
       <div className="p-6 max-w-2xl mx-auto mt-20">
@@ -157,7 +141,6 @@ const OrderRequests = () => {
         Showing orders for: <span className="font-bold text-orange-600">{user.email}</span>
       </p>
 
-      {/* Empty State */}
       {orders.length === 0 && (
         <div className="text-center py-12 bg-white rounded-2xl shadow-lg">
           <div className="text-6xl mb-4">📭</div>
@@ -170,7 +153,6 @@ const OrderRequests = () => {
         </div>
       )}
 
-      {/* Orders Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {orders.map((order) => {
           const isPending = order.orderStatus === "pending";
@@ -183,12 +165,10 @@ const OrderRequests = () => {
               key={order._id}
               className="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300"
             >
-              {/* Meal Name */}
               <h2 className="text-2xl font-bold text-orange-600 mb-4 border-b-2 border-orange-100 pb-2">
                 {order.mealName}
               </h2>
 
-              {/* Order Details */}
               <div className="space-y-3 text-gray-700 mb-4">
                 <div className="flex justify-between">
                   <span className="font-semibold">💰 Price:</span>
@@ -215,7 +195,6 @@ const OrderRequests = () => {
                   <p className="text-sm text-gray-600">{order.userAddress}</p>
                 </div>
 
-                {/* Status Badges */}
                 <div className="flex justify-between items-center pt-2">
                   <div>
                     <p className="text-xs text-gray-500 mb-1">Order Status:</p>
@@ -243,7 +222,6 @@ const OrderRequests = () => {
                   </div>
                 </div>
 
-                {/* Order Time */}
                 <div className="pt-2 border-t border-gray-200">
                   <p className="text-xs text-gray-500">🕒 Order Time:</p>
                   <p className="text-sm font-semibold text-gray-700">
@@ -255,7 +233,6 @@ const OrderRequests = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="space-y-2 mt-4">
                 <button
                   disabled={!isPending}

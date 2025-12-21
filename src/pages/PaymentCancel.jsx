@@ -7,7 +7,6 @@ const PaymentCancel = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50">
       <div className="text-center p-12 bg-white rounded-3xl shadow-2xl max-w-lg mx-4">
-        {/* Cancel Icon with Animation */}
         <div className="mb-6 flex justify-center">
           <div className="relative">
             <XCircle className="w-32 h-32 text-red-600 animate-pulse" />
@@ -15,7 +14,6 @@ const PaymentCancel = () => {
           </div>
         </div>
 
-        {/* Cancel Message */}
         <h1 className="text-4xl font-bold text-red-600 mb-4">
           Payment Cancelled
         </h1>
@@ -26,7 +24,6 @@ const PaymentCancel = () => {
           No charges were made to your account. Your order is still waiting for payment.
         </p>
 
-        {/* Information Box */}
         <div className="mb-8 p-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl text-left">
           <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
             <span>ℹ️</span> What happens now?
@@ -47,7 +44,6 @@ const PaymentCancel = () => {
           </ul>
         </div>
 
-        {/* Action Buttons */}
         <div className="space-y-3">
           <button
             onClick={() => navigate("/dashboard/my-orders")}
@@ -66,7 +62,6 @@ const PaymentCancel = () => {
           </button>
         </div>
 
-        {/* Support Note */}
         <div className="mt-8 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500">
             Having trouble with payment?
