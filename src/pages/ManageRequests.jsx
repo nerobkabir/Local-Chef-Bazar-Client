@@ -4,7 +4,7 @@ import useTitle from "../hooks/useTitle";
 
 const ManageRequests = () => {
   const [requests, setRequests] = useState([]);
-  const [filter, setFilter] = useState("all"); // all, pending, approved, rejected
+  const [filter, setFilter] = useState("all"); 
   useTitle("Manage Role Requests");
 
   const fetchRequests = async () => {
@@ -118,7 +118,6 @@ const ManageRequests = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-slate-200">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -131,7 +130,6 @@ const ManageRequests = () => {
             </div>
           </div>
 
-          {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
               <p className="text-sm font-medium text-blue-600 mb-1">Total Requests</p>
@@ -152,7 +150,6 @@ const ManageRequests = () => {
           </div>
         </div>
 
-        {/* Filter Tabs */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-slate-200">
           <div className="flex flex-wrap gap-3">
             {["all", "pending", "approved", "rejected"].map((status) => (
@@ -174,7 +171,6 @@ const ManageRequests = () => {
           </div>
         </div>
 
-        {/* Requests Table */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -275,7 +271,6 @@ const ManageRequests = () => {
             </table>
           </div>
 
-          {/* Empty State */}
           {filteredRequests.length === 0 && (
             <div className="text-center py-16">
               <div className="text-slate-400 text-6xl mb-4">📋</div>

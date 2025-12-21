@@ -20,7 +20,6 @@ const MealDetails = () => {
     comment: "",
   });
 
-  // Fetch meal & reviews
   useEffect(() => {
   if (!user) {
     navigate("/auth/login");
@@ -29,7 +28,7 @@ const MealDetails = () => {
 
   const fetchMealAndReviews = async () => {
     try {
-      // ✅ fetch single meal
+      // fetch single meal
       const mealRes = await fetch(`https://server-side-eight-gray.vercel.app/meals/${mealId}`);
       const mealData = await mealRes.json();
       if (mealData.success) {
@@ -89,8 +88,8 @@ const MealDetails = () => {
 
     const newReview = {
       foodId: meal._id,
-      userEmail: user.email,             // ✅ add this
-      mealName: meal.foodName,           // ✅ add mealName
+      userEmail: user.email,            
+      mealName: meal.foodName,          
       reviewerName: user.displayName,
       reviewerImage: user.photoURL || "https://i.ibb.co/sample-user.jpg",
       rating: reviewForm.rating,
@@ -129,7 +128,6 @@ const MealDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 space-y-10">
-      {/* Meal Details */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -185,7 +183,6 @@ const MealDetails = () => {
       <section>
         <h2 className="text-3xl font-bold mb-6">Customer Reviews</h2>
 
-        {/* Add Review Form */}
         <form onSubmit={handleSubmitReview} className="mb-8 space-y-4">
           <h3 className="text-xl font-semibold">Give Your Review</h3>
           <div className="flex items-center gap-4">
@@ -213,7 +210,7 @@ const MealDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {reviews.map((rev) => (
             <motion.div
-              key={rev._id || rev.date} // fallback
+              key={rev._id || rev.date} 
               whileHover={{ scale: 1.02 }}
               className="bg-white p-6 rounded-2xl shadow-lg flex gap-4"
             >

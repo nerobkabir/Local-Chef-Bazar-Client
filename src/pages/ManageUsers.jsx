@@ -46,7 +46,6 @@ const ManageUsers = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-slate-200">
           <div className="flex items-center justify-between">
             <div>
@@ -64,7 +63,6 @@ const ManageUsers = () => {
           </div>
         </div>
 
-        {/* Table Section */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -137,7 +135,6 @@ const ManageUsers = () => {
             </table>
           </div>
 
-          {/* Empty State */}
           {users.length === 0 && (
             <div className="text-center py-16">
               <div className="text-slate-400 text-6xl mb-4">👥</div>
