@@ -1,10 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-  signOut,
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
 import FullPageLoader from "../components/FullPageLoader";
@@ -41,11 +36,9 @@ const AuthProvider = ({ children }) => {
       }),
     });
 
-    // ✅ Manually fetch user data and update state
     const res = await fetch(`https://server-side-eight-gray.vercel.app/users?email=${email}`);
     const userData = await res.json();
 
-    // ✅ FIX: address field add kora hoise
     setUser({
       ...result.user,
       displayName: name,
@@ -81,7 +74,6 @@ const AuthProvider = ({ children }) => {
         );
         const data = await res.json();
 
-        // ✅ FIX: address field add kora hoise ekhane o
         setUser({
           ...currentUser,
           address: data?.address || null,
