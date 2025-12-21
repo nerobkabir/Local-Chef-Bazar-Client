@@ -6,7 +6,7 @@ import useTitle from "../hooks/useTitle";
 
 const Home = () => {
   const [meals, setMeals] = useState([]);
-  const [reviews, setReviews] = useState([]); // ✅ Empty array দিয়ে initialize
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
   useTitle("Home");
 
@@ -32,7 +32,6 @@ const Home = () => {
       .then((data) => {
         console.log("Reviews data:", data);
         
-        // ✅ Check: data array কিনা
         if (Array.isArray(data)) {
           setReviews(data);
         } else if (data?.data && Array.isArray(data.data)) {
@@ -48,7 +47,6 @@ const Home = () => {
       });
   }, []);
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -73,9 +71,7 @@ const Home = () => {
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero Section with Gradient Background */}
       <section className="relative bg-gradient-to-br from-orange-600 via-red-600 to-pink-600 text-white py-12 md:py-20 overflow-hidden">
-        {/* Animated Background Shapes */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{
@@ -105,7 +101,6 @@ const Home = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
             <div>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -170,7 +165,6 @@ const Home = () => {
                 </motion.button>
               </motion.div>
 
-              {/* Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -192,7 +186,6 @@ const Home = () => {
               </motion.div>
             </div>
 
-            {/* Right Content - Floating Meal Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -218,7 +211,6 @@ const Home = () => {
                   />
                 </div>
                 
-                {/* Floating badges */}
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
@@ -252,7 +244,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Today's Special Meals */}
+      {/* Today Special Meals */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -289,7 +281,6 @@ const Home = () => {
                 className="group bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl cursor-pointer border border-gray-100"
                 onClick={() => navigate(`/meal-details/${meal._id}`)}
               >
-                {/* Image Container */}
                 <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-100 to-red-100">
                   <img
                     src={meal.foodImage}
@@ -297,7 +288,6 @@ const Home = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   
-                  {/* Overlay Badge */}
                   <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
@@ -305,20 +295,17 @@ const Home = () => {
                     </div>
                   </div>
 
-                  {/* Price Badge */}
                   <div className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full shadow-lg font-bold">
                     ৳{meal.price}
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
                     {meal.foodName}
                   </h3>
                   
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                    {/* ✅ Safe ingredients handling */}
                     {Array.isArray(meal.ingredients) 
                       ? meal.ingredients.slice(0, 3).join(", ") + (meal.ingredients.length > 3 ? "..." : "")
                       : meal.ingredients || "Delicious homemade meal"
@@ -391,7 +378,6 @@ const Home = () => {
             </p>
           </motion.div>
 
-          {/* ✅ Conditional Rendering */}
           {reviews.length > 0 ? (
             <motion.div
               variants={containerVariants}
@@ -407,7 +393,6 @@ const Home = () => {
                   whileHover={{ y: -5 }}
                   className="bg-white rounded-3xl shadow-lg p-6 md:p-8 transition-all hover:shadow-2xl border border-gray-100"
                 >
-                  {/* Stars */}
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -421,12 +406,10 @@ const Home = () => {
                     ))}
                   </div>
 
-                  {/* Review Text */}
                   <p className="text-gray-700 mb-6 leading-relaxed">
                     "{review.comment}"
                   </p>
 
-                  {/* Reviewer Info */}
                   <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
                     <img
                       src={review.reviewerImage}
@@ -451,7 +434,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why Choose Us */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -515,7 +497,6 @@ const Home = () => {
         </motion.div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
