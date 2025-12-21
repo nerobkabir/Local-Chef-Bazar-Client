@@ -90,7 +90,6 @@ const MyMeals = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full mb-6 shadow-lg">
             <Utensils className="w-10 h-10 text-white" />
@@ -107,7 +106,6 @@ const MyMeals = () => {
           </div>
         </div>
 
-        {/* Meals Grid */}
         {meals.length === 0 ? (
           <div className="bg-white rounded-3xl shadow-lg p-16 text-center border border-slate-200">
             <div className="text-slate-300 text-8xl mb-6">🍽️</div>
@@ -121,7 +119,6 @@ const MyMeals = () => {
                 key={meal._id}
                 className="group bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
               >
-                {/* Image Section */}
                 <div className="relative h-56 overflow-hidden">
                   <img
                     src={meal.foodImage}
@@ -145,22 +142,17 @@ const MyMeals = () => {
                     </button>
                   </div>
                   
-                  {/* Price Badge */}
                   <div className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full shadow-lg font-bold text-lg">
                     ${meal.price}
                   </div>
                 </div>
 
-                {/* Content Section */}
                 <div className="p-6">
-                  {/* Meal Name */}
                   <h3 className="text-2xl font-bold text-slate-800 mb-4 line-clamp-1">
                     {meal.foodName}
                   </h3>
 
-                  {/* Info Grid */}
                   <div className="space-y-3 mb-5">
-                    {/* Rating */}
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
                         <Star className="w-4 h-4 text-yellow-600 fill-yellow-600" />
@@ -170,7 +162,6 @@ const MyMeals = () => {
                       </span>
                     </div>
 
-                    {/* Chef Info */}
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                         <ChefHat className="w-4 h-4 text-blue-600" />
@@ -180,7 +171,6 @@ const MyMeals = () => {
                       </span>
                     </div>
 
-                    {/* Delivery Time */}
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
                         <Clock className="w-4 h-4 text-green-600" />
@@ -191,7 +181,6 @@ const MyMeals = () => {
                     </div>
                   </div>
 
-                  {/* Ingredients */}
                   <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4 mb-4 border border-orange-200">
                     <p className="text-sm font-semibold text-orange-700 mb-2">Ingredients</p>
                     <div className="flex flex-wrap gap-2">
@@ -211,7 +200,6 @@ const MyMeals = () => {
                     </div>
                   </div>
 
-                  {/* Update Button */}
                   <button
                     onClick={() => openUpdateModal(meal)}
                     className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
@@ -224,10 +212,8 @@ const MyMeals = () => {
           </div>
         )}
 
-        {/* Update Modal */}
         <dialog id="updateModal" className="modal">
           <div className="modal-box max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 p-0">
-            {/* Modal Header */}
             <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-6 text-center">
               <h3 className="font-bold text-3xl text-white flex items-center justify-center gap-3">
                 <Pencil className="w-8 h-8" />
@@ -235,10 +221,7 @@ const MyMeals = () => {
               </h3>
               <p className="text-amber-100 mt-2">Modify your meal details below</p>
             </div>
-
-            {/* Modal Form */}
             <form onSubmit={handleUpdate} className="p-8 space-y-5">
-              {/* Food Name */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Meal Name
@@ -252,7 +235,6 @@ const MyMeals = () => {
                 />
               </div>
 
-              {/* Price */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Price ($)
@@ -268,7 +250,6 @@ const MyMeals = () => {
                 />
               </div>
 
-              {/* Ingredients */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Ingredients (comma separated)
@@ -282,7 +263,6 @@ const MyMeals = () => {
                 />
               </div>
 
-              {/* Delivery Time */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Estimated Delivery Time
@@ -296,7 +276,6 @@ const MyMeals = () => {
                 />
               </div>
 
-              {/* Chef Experience */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Chef Experience
@@ -310,7 +289,6 @@ const MyMeals = () => {
                 />
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"

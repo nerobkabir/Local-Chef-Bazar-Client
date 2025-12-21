@@ -27,7 +27,6 @@ const Meals = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Fetch meals with pagination
   useEffect(() => {
     const fetchMeals = async () => {
       setIsLoading(true);
@@ -59,7 +58,6 @@ const Meals = () => {
     setSortAsc(!sortAsc);
   };
 
-  // Handle "See Details"
   const handleSeeDetails = (mealId) => {
     if (!user) {
       navigate("/auth/login");
@@ -68,7 +66,6 @@ const Meals = () => {
     }
   };
 
-  // Smart pagination
   const getPageNumbers = () => {
     const maxButtons = 5;
     let start = Math.max(currentPage - 2, 1);
@@ -77,7 +74,6 @@ const Meals = () => {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -102,7 +98,6 @@ const Meals = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Hero Header Section */}
       <section className="bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -125,16 +120,13 @@ const Meals = () => {
         </div>
       </section>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {/* Controls Bar */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white rounded-2xl shadow-lg p-4 md:p-6 mb-8 border border-gray-200"
         >
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {/* Results Count */}
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
                 <ChefHat className="w-6 h-6 text-white" />
@@ -147,7 +139,6 @@ const Meals = () => {
               </div>
             </div>
 
-            {/* Sort Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -161,7 +152,6 @@ const Meals = () => {
           </div>
         </motion.div>
 
-        {/* Loading State */}
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[...Array(6)].map((_, i) => (
@@ -180,7 +170,6 @@ const Meals = () => {
           </div>
         ) : (
           <>
-            {/* Meals Grid */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentPage}
@@ -196,18 +185,14 @@ const Meals = () => {
                     whileHover={{ y: -8, scale: 1.02 }}
                     className="group bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl border border-gray-100"
                   >
-                    {/* Image Container */}
                     <div className="relative h-64 overflow-hidden bg-gradient-to-br from-orange-100 to-red-100">
                       <img
                         src={meal.foodImage}
                         alt={meal.foodName}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
-
-                      {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                      {/* Rating Badge */}
                       <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
                         <div className="flex items-center gap-1.5">
                           <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
@@ -217,21 +202,18 @@ const Meals = () => {
                         </div>
                       </div>
 
-                      {/* Price Badge */}
+                
                       <div className="absolute bottom-4 left-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full shadow-xl font-bold flex items-center gap-2">
                         <DollarSign className="w-4 h-4" />
                         <span>{meal.price} TK</span>
                       </div>
                     </div>
 
-                    {/* Content */}
                     <div className="p-6">
-                      {/* Meal Name */}
                       <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors line-clamp-1">
                         {meal.foodName}
                       </h3>
 
-                      {/* Chef Info */}
                       <div className="flex items-center gap-3 mb-3 pb-3 border-b border-gray-100">
                         <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center flex-shrink-0">
                           <ChefHat className="w-5 h-5 text-white" />
@@ -246,7 +228,6 @@ const Meals = () => {
                         </div>
                       </div>
 
-                      {/* Delivery Area */}
                       <div className="flex items-center gap-2 mb-4 text-gray-600">
                         <MapPin className="w-4 h-4 text-orange-500 flex-shrink-0" />
                         <span className="text-sm truncate">
@@ -254,7 +235,6 @@ const Meals = () => {
                         </span>
                       </div>
 
-                      {/* Details Button */}
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -279,7 +259,6 @@ const Meals = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* Enhanced Pagination */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -287,7 +266,6 @@ const Meals = () => {
               className="mt-12 bg-white rounded-2xl shadow-lg p-6 border border-gray-200"
             >
               <div className="flex flex-wrap justify-center items-center gap-2">
-                {/* Previous Button */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -303,7 +281,6 @@ const Meals = () => {
                   <span className="hidden sm:inline">Previous</span>
                 </motion.button>
 
-                {/* Page Numbers */}
                 <div className="flex gap-2">
                   {getPageNumbers().map((page) => (
                     <motion.button
@@ -322,7 +299,6 @@ const Meals = () => {
                   ))}
                 </div>
 
-                {/* Next Button */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -341,7 +317,6 @@ const Meals = () => {
                 </motion.button>
               </div>
 
-              {/* Page Info */}
               <div className="text-center mt-4 text-gray-600 text-sm">
                 Page <span className="font-bold text-orange-600">{currentPage}</span> of{" "}
                 <span className="font-bold">{totalPages}</span>
@@ -351,7 +326,6 @@ const Meals = () => {
         )}
       </div>
 
-      {/* CTA Section */}
       <section className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 py-12 mt-12">
         <div className="max-w-4xl mx-auto px-4 text-center text-white">
           <motion.div
