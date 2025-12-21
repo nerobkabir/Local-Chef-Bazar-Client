@@ -1,16 +1,5 @@
 import { Link } from "react-router-dom";
-import { 
-  ChefHat, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Facebook, 
-  Instagram, 
-  Youtube, 
-  Twitter,
-  Clock,
-  Heart
-} from "lucide-react";
+import { ChefHat, Phone, Mail, MapPin, Facebook, Instagram, Youtube, Twitter,Clock,Heart} from "lucide-react";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -32,7 +21,6 @@ const Footer = () => {
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300">
-      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           
@@ -77,7 +65,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
               <div className="w-1 h-6 bg-gradient-to-b from-orange-500 to-red-600 rounded-full" />
@@ -174,7 +161,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Newsletter Section */}
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-2xl p-6 md:p-8 border border-orange-500/20">
@@ -206,7 +192,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Copyright */}
+      {/* Copyright */}
       <div className="border-t border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
