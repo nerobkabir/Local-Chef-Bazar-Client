@@ -1,4 +1,3 @@
-// Login.jsx
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../pages/AuthProvider";
@@ -10,11 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   useTitle("Login");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const {register, handleSubmit, formState: { errors },} = useForm();
 
   const onSubmit = async (data) => {
     try {
@@ -28,9 +23,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Login Card */}
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-          {/* Header Section */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-10 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-black opacity-10"></div>
             <div className="relative z-10">
@@ -54,10 +47,8 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Form Section */}
           <div className="px-8 py-10">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* Email Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Email Address
@@ -99,7 +90,6 @@ const Login = () => {
                 )}
               </div>
 
-              {/* Password Field */}
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Password
@@ -141,7 +131,6 @@ const Login = () => {
                 )}
               </div>
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
@@ -149,7 +138,6 @@ const Login = () => {
                 Sign In
               </button>
 
-              {/* Register Link */}
               <div className="text-center pt-4 border-t border-slate-200">
                 <p className="text-slate-600">
                   Don't have an account?{" "}
@@ -165,7 +153,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Footer Text */}
         <p className="text-center text-slate-500 text-sm mt-6">
           Protected by industry-standard security
         </p>
