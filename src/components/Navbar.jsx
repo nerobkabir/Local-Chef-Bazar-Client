@@ -28,7 +28,6 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
             <motion.div
               whileHover={{ rotate: 360 }}
@@ -77,7 +76,6 @@ const Navbar = () => {
             ))}
           </nav>
 
-          {/* Desktop Auth Section */}
           <div className="hidden md:flex items-center gap-3">
             {!user ? (
               <>
@@ -121,7 +119,6 @@ const Navbar = () => {
                       transition={{ duration: 0.2 }}
                       className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
                     >
-                      {/* Profile Header */}
                       <div className="bg-gradient-to-r from-orange-500 to-red-600 p-4 text-white">
                         <div className="flex items-center gap-3">
                           <img
@@ -264,7 +261,7 @@ const Navbar = () => {
         </AnimatePresence>
       </div>
 
-      {/* Close dropdown when clicking outside */}
+      {/* Close dropdown*/}
       {profileOpen && (
         <div
           className="fixed inset-0 z-40"
