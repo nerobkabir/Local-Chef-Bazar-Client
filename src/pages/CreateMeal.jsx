@@ -12,7 +12,6 @@ const CreateMeal = () => {
   const [loading, setLoading] = useState(true);
   useTitle("Create Meal");
 
-  // Fetch user info (status) from backend
   useEffect(() => {
     if (!user) return;
 
@@ -20,7 +19,7 @@ const CreateMeal = () => {
       try {
         const res = await fetch(`https://server-side-eight-gray.vercel.app/users?email=${user.email}`);
         const data = await res.json();
-        setUserStatus(data.status || "active"); // default active
+        setUserStatus(data.status || "active"); 
       } catch (error) {
         console.error("Error fetching user status:", error);
       } finally {
@@ -59,7 +58,7 @@ const CreateMeal = () => {
       );
       const imageUrl = uploadRes.data.data.url;
 
-      // Prepare meal data
+      // meal data
       const mealData = {
         foodName: data.foodName.trim(),
         chefName: data.chefName.trim(),
@@ -74,7 +73,6 @@ const CreateMeal = () => {
         createdAt: new Date(),
       };
 
-      // Send to backend
       const res = await fetch("https://server-side-eight-gray.vercel.app/create-meal", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
