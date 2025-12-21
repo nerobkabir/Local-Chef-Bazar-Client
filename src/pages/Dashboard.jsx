@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthProvider"; // ✅ আপনার actual AuthContext
+import { AuthContext } from "./AuthProvider"; 
 import { 
   User, 
   ShoppingBag, 
@@ -19,9 +19,7 @@ import {
 } from "lucide-react";
 import useTitle from "../hooks/useTitle";
 
-// ===========================
-// Sidebar Component
-// ===========================
+
 const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout }) => {
   const commonLinks = [
     { name: "My Profile", path: "profile", icon: <User className="w-5 h-5" /> },
@@ -54,7 +52,6 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
 
   return (
     <>
-      {/* Mobile Overlay */}
       {isMobileOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -70,7 +67,6 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
         transform transition-transform duration-300 ease-in-out z-50
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
-        {/* Header */}
         <div className="relative">
           <NavLink
             to="/"
@@ -85,7 +81,6 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
             </span>
           </NavLink>
 
-          {/* Mobile Close Button */}
           <button
             onClick={() => setIsMobileOpen(false)}
             className="lg:hidden absolute top-6 right-6 p-2 hover:bg-gray-700 rounded-lg transition-colors"
@@ -94,7 +89,6 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
           </button>
         </div>
 
-        {/* Navigation Links */}
         <nav className="flex-1 overflow-y-auto p-4 space-y-2">
           {allLinks.map((link, index) => (
             <NavLink
@@ -118,7 +112,6 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
           ))}
         </nav>
 
-        {/* Footer - Logout Button */}
         <div className="p-4 border-t border-gray-700">
           <button 
             onClick={handleLogout}
@@ -133,9 +126,7 @@ const DashboardSidebar = ({ role, isMobileOpen, setIsMobileOpen, handleLogout })
   );
 };
 
-// ===========================
-// Role Badge Component
-// ===========================
+
 const RoleBadge = ({ role }) => {
   const roleConfig = {
     user: { 
@@ -165,9 +156,7 @@ const RoleBadge = ({ role }) => {
   );
 };
 
-// ===========================
-// Main Dashboard Page
-// ===========================
+
 const Dashboard = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -196,12 +185,10 @@ const Dashboard = () => {
         handleLogout={handleLogout}
       />
 
-      {/* Main Content */}
+     
       <main className="flex-1 flex flex-col min-h-screen">
-        {/* Header */}
         <header className="sticky top-0 z-30 bg-white shadow-md border-b border-gray-200">
           <div className="flex items-center justify-between p-4 lg:p-6">
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileOpen(true)}
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -209,7 +196,6 @@ const Dashboard = () => {
               <Menu className="w-6 h-6 text-gray-700" />
             </button>
 
-            {/* Welcome Section */}
             <div className="flex-1 ml-4 lg:ml-0">
               <h1 className="text-xl lg:text-3xl font-bold text-gray-800 flex items-center gap-2">
                 <span className="hidden sm:inline">👋</span>
@@ -223,22 +209,18 @@ const Dashboard = () => {
               </p>
             </div>
 
-            {/* Role Badge */}
             <div className="hidden sm:block">
               <RoleBadge role={role} />
             </div>
           </div>
 
-          {/* Mobile Role Badge */}
           <div className="sm:hidden px-4 pb-3">
             <RoleBadge role={role} />
           </div>
         </header>
 
-        {/* Content Area */}
         <div className="flex-1 p-4 lg:p-8">
           <div className="max-w-7xl mx-auto">
-            {/* Nested Route Content */}
             <Outlet />
           </div>
         </div>
