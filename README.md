@@ -22,10 +22,10 @@ This project is built as a **skill assessment system** focusing on authenticatio
 
 ## Live Website
 
-* **Client Live URL:** [https://localchefbazaar-client.vercel.app](https://localchefbazaar-client.vercel.app)
-* **Server Live URL:** [https://localchefbazaar-server.vercel.app](https://localchefbazaar-server.vercel.app)
+* **Client Live URL:** [https://localchefbazaar-31da8.web.app](https://localchefbazaar-31da8.web.app)
+* **Server Live URL:** [https://server-side-eight-gray.vercel.app](https://server-side-eight-gray.vercel.app)
 
-> ⚠️ Replace URLs with your actual deployed links
+> Replace URLs with your actual deployed links
 
 ---
 
@@ -34,7 +34,7 @@ This project is built as a **skill assessment system** focusing on authenticatio
 * **Admin Email:** [admin@example.com](mailto:admin@example.com)
 * **Admin Password:** Admin@1234
 
-> ⚠️ Change credentials before production
+> Change credentials before production
 
 ---
 
