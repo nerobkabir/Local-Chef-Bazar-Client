@@ -25,18 +25,6 @@ This project is built as a **skill assessment system** focusing on authenticatio
 * **Client Live URL:** [https://localchefbazaar-31da8.web.app](https://localchefbazaar-31da8.web.app)
 * **Server Live URL:** [https://server-side-eight-gray.vercel.app](https://server-side-eight-gray.vercel.app)
 
-> Replace URLs with your actual deployed links
-
----
-
-## Admin Credentials (For Evaluation)
-
-* **Admin Email:** [admin@example.com](mailto:admin@example.com)
-* **Admin Password:** Admin@1234
-
-> Change credentials before production
-
----
 
 ## Key Features
 
